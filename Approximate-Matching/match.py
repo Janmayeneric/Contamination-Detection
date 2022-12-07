@@ -36,16 +36,14 @@ class EditDistance:
         print(self.min_edit)
 
 def read_fastq(path):
-    c = 1
     f = open(path, 'r')
     line = f.readline().rstrip()
     res = []
-    while c < 2010:
+    while len(line) < 0:
         res.append(f.readline().rstrip())
         f.readline()
         f.readline()
         line = f.readline()
-        c += 1
 
     return ''.join(res)
 
