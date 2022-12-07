@@ -8,8 +8,7 @@ length of x must be longer than y
 '''
 
 
-class editDistance:
-    min_edit = 0
+class EditDistance:
 
     @lru_cache(None)
     def match(self,ix, iy):
@@ -21,14 +20,42 @@ class editDistance:
 
         return min(self.match(ix, iy-1) + 1, self.match(ix-1, iy) + 1, self.match(ix-1, iy-1) + (1 if self.x[ix] != self.y[iy] else 0))
 
+    def find(self):
+        for ix in range(len(self.x)):
+            self.min_edit = min(self.min_edit, self.match(ix, self.max_iy))
+            if self.min_edit == 0:
+                break
+
     def __init__(self, x, y):
         self.x = x
         self.y = y
-        max_iy = len(y) - 1
+        self.max_iy = len(y) - 1
         self.min_edit = len(y)
 
-        for ix in range(len(x)):
-            self.min_edit = min(self.min_edit, self.match(ix, max_iy))
 
-            if self.min_edit == 0:
-                break
+        print(self.min_edit)
+
+def read_fastq(path):
+    c = 1
+    f = open(path, 'r')
+    line = f.readline().rstrip()
+    res = []
+    while c < 2010:
+        res.append(f.readline().rstrip())
+        f.readline()
+        f.readline()
+        line = f.readline()
+        c += 1
+
+    return ''.join(res)
+
+
+def read_fasta(path):
+    f = open(path, 'r')
+    line = f.readline().rstrip()
+    res = []
+    while len(line) > 0:
+        res.append(f.readline().rstrip())
+        line = f.readline()
+
+    return ''.join(res)
