@@ -39,7 +39,7 @@ def read_fastq(path):
     f = open(path, 'r')
     line = f.readline().rstrip()
     res = []
-    while len(line) < 0:
+    while len(line) > 0:
         res.append(f.readline().rstrip())
         f.readline()
         f.readline()
