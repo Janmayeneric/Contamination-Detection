@@ -8,8 +8,8 @@ from utils import read_fasta, read_fasta_individual
 
 parser = argparse.ArgumentParser()
 
-parser.add_argument('--human_file', type=str, default="raw_data/SRR6756025_200_reads.fasta", help='Human fastq file')
-parser.add_argument('--contaminate_file', type=str, default="raw_data/staphylococcus.fasta", help='Foreign DNA fastq file to contaminate human file')
+parser.add_argument('--human_file', type=str, default="raw_data/SRR6756025_200_reads.fasta", help='Human fasta file')
+parser.add_argument('--contaminate_file', type=str, default="raw_data/staphylococcus.fasta", help='Foreign DNA fasta file to contaminate human file')
 parser.add_argument('--output_file', type=str, default="synthetic_data/output.fastq", help='Output file')
 parser.add_argument('--contamination_length', type=int, default=50, help='The edit window length that edits will span')
 parser.add_argument('--sequence_identity', type=float, default=0.50, help='The fraction of each edit window that will be editted')
