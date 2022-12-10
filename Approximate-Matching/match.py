@@ -22,9 +22,6 @@ class EditDistance:
             self.min_edit = min(self.min_edit,current_column[-1])
 
             pre_column = current_column
-            if self.expect > 0:
-                if self.min_edit <= self.expect:
-                    break
             
             
         
