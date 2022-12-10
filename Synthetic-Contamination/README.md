@@ -1,6 +1,6 @@
 
 ### Synthetic Data
-Test data was generated to analyse our algorithms, and it was modeled on real world contamination. For details on our research into modeling real world DNA contamination, see the Synthetic Contamination section of[our paper](https://docs.google.com/document/d/1H0eskVyN2bw598BKahwPZZeatdrgg8UWtNJwoevdmlU/edit?usp=sharing)
+Test data was generated to analyse our algorithms, and it was modeled on real world contamination. For details on our research into modeling real world DNA contamination, see the Synthetic Contamination section of [our paper](https://docs.google.com/document/d/1H0eskVyN2bw598BKahwPZZeatdrgg8UWtNJwoevdmlU/edit?usp=sharing)
 
 contaminate.py is the main file for generating test. You can tune the following parameters to create a synthetic contamination:
  - human_file = Intended fasta file
