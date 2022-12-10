@@ -1,5 +1,5 @@
 import argparse
-from transformers import  AutoTokenizer, AdamW, get_linear_schedule_with_warmup, BertModel
+from transformers import AutoTokenizer, AdamW, get_linear_schedule_with_warmup, BertModel
 import torch
 import torch.nn as nn
 from tqdm import tqdm
@@ -21,7 +21,6 @@ def read_fastq(filename):
 parser = argparse.ArgumentParser()
 
 parser.add_argument('--train_file', type=str, default="1000-0.1.fastq", help='training fastq file')
-parser.add_argument('--test_file', type=str, default="1000-0.05.fastq")
 parser.add_argument('--batch_size', type=int, default=64, help='batch size')
 
 args = parser.parse_args()
@@ -105,7 +104,6 @@ def evaluate(model, dataloader):
         labels = torch.Tensor(batch[2]).long().view(-1).tolist()
         logits = model(input_ids, attention_mask)[1]
         _predictions = torch.sigmoid(logits).view(-1).cpu().tolist()
-        print(_predictions[:10])
         predictions = [1 if _p > 0.5 else 0 for _p in _predictions]
 
         for p, t in zip(predictions, labels):
@@ -136,17 +134,17 @@ def main():
     # model = BertForSequenceClassification(config)
 
     train_dataset = process_data(tokenizer, args.train_file)  # , process_data(tokenizer)
-    test_dataset_05 = process_data(tokenizer, "1000-0.05.fastq")
-    test_dataset_10 = process_data(tokenizer, "1000-0.1.fastq")
-    test_dataset_20 = process_data(tokenizer, "1000-0.2.fastq")
+    test_dataset_05 = process_data(tokenizer, "data/1000-0.05.fastq")
+    test_dataset_10 = process_data(tokenizer, "data/1000-0.1.fastq")
+    test_dataset_20 = process_data(tokenizer, "data/1000-0.2.fastq")
 
     train_dataloader = DataLoader(train_dataset, shuffle=True, batch_size=args.batch_size)
     test_dataloader_05 = DataLoader(test_dataset_05, shuffle=False, batch_size=128)
     test_dataloader_10 = DataLoader(test_dataset_10, shuffle=False, batch_size=128)
     test_dataloader_20 = DataLoader(test_dataset_20, shuffle=False, batch_size=128)
 
-    optimizer = AdamW(model.parameters(), 0.0001)
-    scheduler = get_linear_schedule_with_warmup(optimizer, 100, 5000)
+    optimizer = AdamW(model.parameters(), 0.00001)
+    scheduler = get_linear_schedule_with_warmup(optimizer, 100, 3000)
 
     for epoch in range(3):
         model.train()
